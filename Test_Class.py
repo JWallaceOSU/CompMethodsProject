@@ -4,7 +4,7 @@ class Test:
 
     def __init__(self,path):
         self.path = path
-        self.filedata = None
+        self.fileData = None
         self.data = []
         self.stepTime = []
         self.strain = []
@@ -16,6 +16,7 @@ class Test:
         self.results = None
         self.title = self.path.strip().split('\\')
         self.title = self.title[len(self.title)-1]
+        self.cols = None
         self.steps = []
         self.stepIndices = [0]
         self.units = None
@@ -32,7 +33,6 @@ class Test:
         for dim in dimarr:
             if ".txt" in dim:
                 dim = dim.strip(".txt")
-            first = dim[0]
             if dim[0] == 't':
                 self.thick = float(dim[1:].strip().replace("p",'.'))
             if dim[0] == 'w':
@@ -55,20 +55,20 @@ class Test:
 
     def readData(self):
         f1 = open(self.path,'r')
-        self.filedata = f1.readlines()
+        self.fileData = f1.readlines()
         f1.close()
         i = 0
-        for line in self.filedata:
+        for line in self.fileData:
             if "[step]" in line:
-                self.steps.append(self.filedata[i+1].strip())
+                self.steps.append(self.fileData[i + 1].strip())
                 if self.units is None:
-                    self.cols = self.filedata[i+2].strip().split("\t")
-                    self.units = self.filedata[i+3].strip().split("\t")
+                    self.cols = self.fileData[i + 2].strip().split("\t")
+                    self.units = self.fileData[i + 3].strip().split("\t")
                 j = i + 3
                 while True:
                     j+=1
-                    if "[step]" not in self.filedata[j].strip() and len(self.filedata[j].strip()) > 0:
-                        lineData = self.filedata[j].split("\t")
+                    if "[step]" not in self.fileData[j].strip() and len(self.fileData[j].strip()) > 0:
+                        lineData = self.fileData[j].split("\t")
                         chunk = []
                         for point in lineData:
                             chunk.append(float(point.strip("\n")))
