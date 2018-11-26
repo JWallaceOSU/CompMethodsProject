@@ -11,7 +11,7 @@ interact with the data.
 
 **3.** Process data
 
-**.4** Figure out how to plot matplotlib in Qt
+**.4** Figure out how to plot matplotlib in Qt - Ethan?
 
 **.5** Rest of GUI
 

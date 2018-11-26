@@ -29,6 +29,7 @@ class main_window(QDialog):
         self.test = Test(filename)
         self.test.readData()
         self.test.sortData()
+        self.test.stepProcess()
         print(self.test.stepIndices[2])
         print(self.test.realTime[self.test.stepIndices[2]])
 def no_file():

@@ -13,6 +13,8 @@ class Test:
         self.force = []
         self.gap = []
         self.realTime = []
+        self.stepStorage = []
+        self.stepLoss = []
         self.results = None
         self.title = self.path.strip().split('\\')
         self.title = self.title[len(self.title)-1]
@@ -30,6 +32,7 @@ class Test:
         self.strainAmp = None
         self.extGap = None
         dimarr = self.title.strip().split('_')
+
         for dim in dimarr:
             if ".txt" in dim:
                 dim = dim.strip(".txt")
@@ -51,7 +54,6 @@ class Test:
                 self.strainAmp = float(dim[1:].strip().replace("p",'.'))
             if dim[0] == 'g':
                 self.extGap = float(dim[1:].strip().replace("p", '.'))
-
 
     def readData(self):
         f1 = open(self.path,'r')
@@ -82,7 +84,6 @@ class Test:
 
 
             i+=1
-
 
     def sortData(self):
         if len(self.data) != 0:
@@ -116,6 +117,14 @@ class Test:
                 except:
                     print("Error in Data Collection")
                     raise
+
+    def stepProcess(self):
+        for i in range(0,len(self.stepIndices)-1):
+            dt = np.zeros_like(self.realTime)
+
+            stressFFT = np.fft.fft(self.stress[self.stepIndices[i]:(self.stepIndices[i+1]-1)])
+            strainFFT = np.fft.fft(self.strain[self.stepIndices[i]:(self.stepIndices[i+1]-1)])
+            freq = np.fft.fftfreq((self.stepIndices[i+1]-se.self.stepIndices[i]-1),)
 
 
 
