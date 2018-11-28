@@ -36,7 +36,7 @@ class main_window(QDialog):
         self.test.sortData()
     # Plot stuff, mostly for testing purposes
     def plotData(self):
-        self.plot = plot_window(xdata=self.test.realTime,ydata=self.test.temp)
+        self.plot = plot_window(xdata=self.test.realTime,ydata=self.test.temp,plotType=3)
         self.plot.show()
 
 def no_file():
