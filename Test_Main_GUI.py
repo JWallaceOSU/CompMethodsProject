@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QFileDialog,QMessageBox
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import Qt
 
+from Plot_Window import plot_window
 from Test_ui import Ui_Dialog
 from Test_Class import Test
 
@@ -18,9 +19,13 @@ class main_window(QDialog):
         self.assign_widgets()
         self.test = None
         self.show()
+        self.plot = None
 
     def assign_widgets(self):
         self.ui.pushButton_getFile.clicked.connect(self.getData)
+        self.ui.pushButton_RawDataPlot.clicked.connect(self.plotData)
+
+    # Ask the user to select a file to process and process it
     def getData(self):
         filename = QFileDialog.getOpenFileName()[0]
         if len(filename) == 0:
@@ -29,9 +34,11 @@ class main_window(QDialog):
         self.test = Test(filename)
         self.test.readData()
         self.test.sortData()
-        self.test.stepProcess()
-        print(self.test.stepIndices[2])
-        print(self.test.realTime[self.test.stepIndices[2]])
+    # Plot stuff, mostly for testing purposes
+    def plotData(self):
+        self.plot = plot_window(xdata=self.test.realTime,ydata=self.test.temp)
+        self.plot.show()
+
 def no_file():
     msg = QMessageBox()
     msg.setText('There was no file selected')

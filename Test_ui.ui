@@ -26,6 +26,19 @@
     <string>Get File</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_RawDataPlot">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>90</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Plot Thang</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
