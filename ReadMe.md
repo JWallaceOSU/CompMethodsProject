@@ -17,4 +17,6 @@ interact with the data.
 
 **6.** Make Plot_Window more functional
 
+**7.** Parameter study of 2^nextpow2 + spacing line 43 in DMA effect on fourier spectrum maybe also spacing around signal for phase angle 
+
 
