@@ -7,7 +7,8 @@ from PyQt5.QtWidgets import QFileDialog,QMessageBox
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import Qt
 
-from Plot_Window import plot_window
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from Plot_Window import plot_window, MyMplCanvas
 from Test_ui import Ui_Dialog
 from Test_Class import Test
 
@@ -33,10 +34,19 @@ class main_window(QDialog):
             return
         self.test = Test(filename)
         self.test.readData()
-        self.test.sortData()
+        self.test.processStepData()
     # Plot stuff, mostly for testing purposes
     def plotData(self):
-        self.plot = plot_window(xdata=self.test.realTime,ydata=self.test.temp,plotType=0)
+        a = 20000
+        b = a + 1024
+        self.plot = plot_window(xdata=self.test.tempPts,ydata=self.test.storagePts,plotType=0)
+        self.plot.show()
+        sc2 = MyMplCanvas(xdata=self.test.data.stepTime[a:b],ydata=self.test.data.strain[a:b],plotType=0)
+        sc3 = MyMplCanvas(xdata=self.test.stepResult[1].fspace,ydata=self.test.stepResult[1].sigAmp)
+        sc3ntb = NavigationToolbar(sc3,self.plot.main_widget)
+        self.plot.l.addWidget(sc2)
+        self.plot.l.addWidget(sc3)
+        self.plot.l.addWidget(sc3ntb)
         self.plot.show()
 
 def no_file():

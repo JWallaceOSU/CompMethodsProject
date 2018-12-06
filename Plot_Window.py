@@ -24,7 +24,7 @@ class MyMplCanvas(FigureCanvas):
         fig.suptitle(title)
 
         # We want the axes cleared every time plot() is called
-        self.axes.hold(False)
+        self.axes.clear()
 
         self.compute_initial_figure()
 
@@ -64,11 +64,11 @@ class plot_window(QMainWindow):
         self.title = title
         self.plotType = plotType
         self.main_widget = QWidget(self)
-        l = QVBoxLayout(self.main_widget)
+        self.l = QVBoxLayout(self.main_widget)
         sc = MyMplCanvas(self.main_widget,width=self.width,height=self.height,dpi=self.dpi,title=self.title,
                          xdata=self.xdata,ydata=self.ydata,ylabel=self.ylabel,xlabel=self.xlabel,plotType=self.plotType)
         scntb = NavigationToolbar(sc,self.main_widget)
-        l.addWidget(sc)
-        l.addWidget(scntb)
+        self.l.addWidget(sc)
+        self.l.addWidget(scntb)
         self.main_widget.setFocus()
         self.setCentralWidget(self.main_widget)
